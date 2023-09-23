@@ -43,6 +43,8 @@ public class Menu : MonoBehaviourPunCallbacks, ILobbyCallbacks
         //are we in a game
         if(PhotonNetwork.InRoom)
             //go to lobby
+            SetScreen(lobbyScreen);
+            UpdateLobbyUI();
 
             //Make room visible again
             PhotonNetwork.CurrentRoom.IsVisible = true;
@@ -82,8 +84,9 @@ public class Menu : MonoBehaviourPunCallbacks, ILobbyCallbacks
 
     public override void OnConnectedToMaster ()
     {
-        createRoomButton.interactable = true;
-        findRoomButton.interactable = true;
+        // createRoomButton.interactable = true;
+        // findRoomButton.interactable = true;
+        PhotonNetwork.JoinLobby();
     }
 
     public void OnCreateRoomButton ()
@@ -104,7 +107,7 @@ public class Menu : MonoBehaviourPunCallbacks, ILobbyCallbacks
 
 
         // Lobby Screen
-    public override void OnJoinedRoom ()
+    public override void OnJoinedRoom()
     {
         SetScreen(lobbyScreen);
         photonView.RPC("UpdateLobbyUI", RpcTarget.All);
@@ -125,7 +128,7 @@ public class Menu : MonoBehaviourPunCallbacks, ILobbyCallbacks
         foreach(Player player in PhotonNetwork.PlayerList)
             playerListText.text += player.NickName + "\n";
 
-         roomInfoText.text = "<b>RoomName</b>\n" + PhotonNetwork.CurrentRoom.Name;
+        roomInfoText.text = "<b>RoomName</b>\n" + PhotonNetwork.CurrentRoom.Name;
     }
 
     public void OnStartGameButton ()
@@ -160,11 +163,10 @@ public class Menu : MonoBehaviourPunCallbacks, ILobbyCallbacks
 
         for(int x = 0; x < roomList.Count; ++x)
         {
-            GameObject button = x <= roomButtons.Count ? CreateRoomButton() : roomButtons[x];
-
+            GameObject button = x >= roomButtons.Count ? CreateRoomButton() : roomButtons[x];
             button.SetActive(true);
 
-            button.transform.Find("RoomNameText").GetComponent<TextMeshProUGUI>().text =  roomList[x].name;
+            button.transform.Find("RoomNameText").GetComponent<TextMeshProUGUI>().text = roomList[x].Name;
             button.transform.Find("PlayerCountText").GetComponent<TextMeshProUGUI>().text = roomList[x].PlayerCount + " / " + roomList[x].MaxPlayers;
 
             //set button
@@ -189,6 +191,7 @@ public class Menu : MonoBehaviourPunCallbacks, ILobbyCallbacks
 
     public override void OnRoomListUpdate (List<RoomInfo> allRooms)
     {
+        // Debug.Log("OnRoomListUpdate Called from Photon");
         roomList = allRooms;
     }
 }
