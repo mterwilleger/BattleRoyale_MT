@@ -84,9 +84,8 @@ public class Menu : MonoBehaviourPunCallbacks, ILobbyCallbacks
 
     public override void OnConnectedToMaster ()
     {
-        // createRoomButton.interactable = true;
-        // findRoomButton.interactable = true;
-        PhotonNetwork.JoinLobby();
+        createRoomButton.interactable = true;
+        findRoomButton.interactable = true;
     }
 
     public void OnCreateRoomButton ()
