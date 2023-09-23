@@ -14232,6 +14232,7 @@ var asmLibraryArg = {
  "invoke_vi": invoke_vi,
  "invoke_vifi": invoke_vifi,
  "invoke_vii": invoke_vii,
+ "invoke_viid": invoke_viid,
  "invoke_viif": invoke_viif,
  "invoke_viiff": invoke_viiff,
  "invoke_viiffi": invoke_viiffi,
@@ -14641,6 +14642,8 @@ var dynCall_iiiijjii = Module["dynCall_iiiijjii"] = createExportWrapper("dynCall
 var dynCall_vijii = Module["dynCall_vijii"] = createExportWrapper("dynCall_vijii");
 
 var dynCall_ijji = Module["dynCall_ijji"] = createExportWrapper("dynCall_ijji");
+
+var dynCall_viid = Module["dynCall_viid"] = createExportWrapper("dynCall_viid");
 
 var dynCall_jiii = Module["dynCall_jiii"] = createExportWrapper("dynCall_jiii");
 
@@ -15322,6 +15325,17 @@ function invoke_viif(index, a1, a2, a3) {
  }
 }
 
+function invoke_viid(index, a1, a2, a3) {
+ var sp = stackSave();
+ try {
+  dynCall_viid(index, a1, a2, a3);
+ } catch (e) {
+  stackRestore(sp);
+  if (e !== e + 0 && e !== "longjmp") throw e;
+  _setThrew(1, 0);
+ }
+}
+
 function invoke_fii(index, a1, a2) {
  var sp = stackSave();
  try {
@@ -15751,6 +15765,17 @@ function invoke_ijji(index, a1, a2, a3, a4, a5) {
  }
 }
 
+function invoke_viij(index, a1, a2, a3, a4) {
+ var sp = stackSave();
+ try {
+  dynCall_viij(index, a1, a2, a3, a4);
+ } catch (e) {
+  stackRestore(sp);
+  if (e !== e + 0 && e !== "longjmp") throw e;
+  _setThrew(1, 0);
+ }
+}
+
 function invoke_jijii(index, a1, a2, a3, a4, a5) {
  var sp = stackSave();
  try {
@@ -15887,17 +15912,6 @@ function invoke_jiiji(index, a1, a2, a3, a4, a5) {
  var sp = stackSave();
  try {
   return dynCall_jiiji(index, a1, a2, a3, a4, a5);
- } catch (e) {
-  stackRestore(sp);
-  if (e !== e + 0 && e !== "longjmp") throw e;
-  _setThrew(1, 0);
- }
-}
-
-function invoke_viij(index, a1, a2, a3, a4) {
- var sp = stackSave();
- try {
-  dynCall_viij(index, a1, a2, a3, a4);
  } catch (e) {
   stackRestore(sp);
   if (e !== e + 0 && e !== "longjmp") throw e;
