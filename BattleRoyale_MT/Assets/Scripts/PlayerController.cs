@@ -101,6 +101,7 @@ public class PlayerController : MonoBehaviourPun
             photonView.RPC("Die", RpcTarget.All);
     }
 
+    [PunRPC]
     void DamageFlash ()
     {
         if(flashingDamage)
