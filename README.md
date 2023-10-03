@@ -1,3 +1,2 @@
-# BattleRoyale_MT
+# MT_BattleRoyale
  
-Play Here: https://mterwilleger.github.io/BattleRoyale_MT/
